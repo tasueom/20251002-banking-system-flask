@@ -1,6 +1,7 @@
 from flask import Flask, render_template as ren, request, redirect, url_for, session
 from werkzeug.security import generate_password_hash as gen_pw, check_password_hash as chk_pw
 import db
+import datetime
 
 app = Flask(__name__)
 app.secret_key = "secret_key_b"
@@ -56,6 +57,22 @@ def signin():
 def signout():
     session.clear()
     return redirect(url_for("index"))
+
+# 계좌 개설
+@app.route("/create_acc", methods=['GET','POST'])
+def create_acc():
+    uid = session.get("uid")
+    if request.method == "POST":
+        acc_no = request.form["acc_no"]
+        balance = request.form["balance"]
+        try:
+            db.create_acc(acc_no, uid, balance)
+            page = "my_acc"
+        except:
+            page = "create_acc"
+        return redirect(url_for(page))
+    acc_no = "100-" + datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+    return ren("create_acc.html", acc_no=acc_no)
 
 #Flask 서버 실행
 if __name__ == "__main__":

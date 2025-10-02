@@ -82,3 +82,15 @@ def get_user(uid):
     result = cur.fetchone()
     conn.close()
     return result
+
+#계좌 개설
+def create_acc(acc_no,uid,balance):
+    conn, cur = conn_db()
+    try:
+        cur.execute("""
+                    insert into accounts(acc_no, uid, balance)
+                    values(%s, %s, %s)
+                    """,(acc_no, uid, balance))
+        conn.commit()
+    finally:
+        conn.close()
