@@ -12,6 +12,8 @@
             {% if not uid %}
             <a href="{{url_for('signup')}}">회원가입</a>
             <a href="{{url_for('signin')}}">로그인</a>
+            {% else %}
+            <a href="{{url_for('signout')}}">로그아웃</a>
             {% endif %}
         </div>
     </div>

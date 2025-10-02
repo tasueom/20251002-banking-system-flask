@@ -43,6 +43,12 @@ def signin():
             return redirect(url_for("signin"))
     return ren("signin.html")
 
+# 로그아웃
+@app.route("/signout")
+def signout():
+    session.clear()
+    return redirect(url_for("index"))
+
 #Flask 서버 실행
 if __name__ == "__main__":
     db.init_db()
