@@ -19,5 +19,7 @@
     </tr>
     {% endfor %}
 </table>
+{% else %}
+<p>개설한 계좌가 없습니다. <a href="{{url_for('create_acc')}}">계좌 개설하러 가기</a></p>
 {% endif %}
 {% endblock %}
