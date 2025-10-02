@@ -1,4 +1,4 @@
-from flask import Flask, render_template as ren, request, redirect, url_for, session
+from flask import Flask, render_template as ren, request, redirect, url_for, session, flash
 from werkzeug.security import generate_password_hash as gen_pw, check_password_hash as chk_pw
 import db
 import datetime
@@ -29,7 +29,9 @@ def signup():
         try:
             db.signup(uid,hashed_pw,name,phone,email)
         except:
+            flash("이미 존재하는 아이디입니다")
             return redirect(url_for("signup"))
+        flash("회원가입을 성공하였습니다.")
         return redirect(url_for("signin"))
     return ren("signup.html")
 
@@ -75,8 +77,10 @@ def create_acc():
         balance = request.form["balance"]
         try:
             db.create_acc(acc_no, uid, balance)
+            flash("계좌가 정상적으로 개설되었습니다.")
             page = "my_acc"
         except:
+            flash("계좌 개설 중 오류가 발생하였습니다.")
             page = "create_acc"
         return redirect(url_for(page))
     acc_no = "100-" + datetime.datetime.now().strftime("%Y%m%d%H%M%S")
