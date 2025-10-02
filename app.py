@@ -5,9 +5,14 @@ import db
 app = Flask(__name__)
 app.secret_key = "secret_key_b"
 
+#아이디, 이름, 역할을 전역 컨텍스트로 사용
+@app.context_processor
+def inject_user():
+    return dict(uid=session.get("uid"), name=session.get("name"), role=session.get("role"))
+
 @app.route("/")
 def index():
-    return ren("index.html", uid = session.get("uid"))
+    return ren("index.html")
 
 #회원가입
 @app.route("/signup", methods=['GET','POST'])
