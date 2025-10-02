@@ -107,3 +107,12 @@ def create_acc(acc_no,uid,balance):
         conn.commit()
     finally:
         conn.close()
+
+# 기존 잔액 선택
+def get_balance(acc_no):
+    conn, cur = conn_db()
+    cur.execute("select balnce from accounts where acc_no=%s",(acc_no))
+    result = cur.fetchone()[0]
+    conn.close()
+    
+    return result

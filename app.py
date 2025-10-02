@@ -86,6 +86,23 @@ def create_acc():
     acc_no = "100-" + datetime.datetime.now().strftime("%Y%m%d%H%M%S")
     return ren("create_acc.html", acc_no=acc_no)
 
+#입금, 출금
+@app.route("/transaction", methods=['GET','POST'])
+def deposit():
+    uid = session.get("uid")
+    if request.method == "POST":
+        acc_no = request.form["acc_no"]
+        trans_type = request.form["trans_type"]
+        amount = request.form["amount"]
+        existing_balance = db.get_balance(acc_no)
+        if trans_type=="입금":
+            balance = existing_balance+amount
+        else:
+            balance = existing_balance-amount
+    # 내 계좌 목록 선택하여 넘김
+    accs = db.get_my_acc(uid)
+    return ren("deposit.html", accs=accs)
+
 #Flask 서버 실행
 if __name__ == "__main__":
     db.init_db()
