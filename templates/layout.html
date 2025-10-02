@@ -8,6 +8,9 @@
 <body>
     <div class="navigation">
         <h1>뱅킹 시스템</h1>
+        {% if role=="user" %}
+        <a href="{{url_for('create_acc')}}">계좌 개설</a>
+        {% endif %}
         <div class="auth_nav">
             {% if not uid %}
             <a href="{{url_for('signup')}}">회원가입</a>
