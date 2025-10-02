@@ -58,6 +58,14 @@ def signout():
     session.clear()
     return redirect(url_for("index"))
 
+# 내 계좌 목록 확인
+@app.route("/my_acc")
+def my_acc():
+    uid = session.get("uid")
+    accs = db.get_my_acc(uid)
+    
+    return ren("my_acc.html",accs=accs)
+
 # 계좌 개설
 @app.route("/create_acc", methods=['GET','POST'])
 def create_acc():

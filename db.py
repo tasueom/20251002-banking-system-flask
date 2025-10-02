@@ -83,6 +83,19 @@ def get_user(uid):
     conn.close()
     return result
 
+# 아이디로 내 계좌 선택
+def get_my_acc(uid):
+    conn, cur = conn_db()
+    cur.execute("""
+                select acc_no, balance, created_at
+                from accounts
+                where uid = %s
+                """,(uid,))
+    result = cur.fetchall()
+    conn.close()
+    
+    return result
+
 #계좌 개설
 def create_acc(acc_no,uid,balance):
     conn, cur = conn_db()

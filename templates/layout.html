@@ -10,6 +10,7 @@
         <h1>뱅킹 시스템</h1>
         <a href="{{url_for('index')}}">메인으로</a>
         {% if role=="user" %}
+        <a href="{{url_for('my_acc')}}">내 계좌</a>
         <a href="{{url_for('create_acc')}}">계좌 개설</a>
         {% endif %}
         <div class="auth_nav">
