@@ -39,10 +39,13 @@ def signin():
         uid = request.form["uid"]
         password = request.form["password"]
         
-        correct_pw = db.get_pw(uid)
+        correct_pw, name, role = db.get_user(uid)
         #로그인 성공
         if correct_pw and chk_pw(correct_pw, password):
+            # 세션에 정보 등록
             session["uid"] = uid
+            session["name"] = name
+            session["role"] = role
             return redirect(url_for("index"))
         else:
             return redirect(url_for("signin"))

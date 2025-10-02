@@ -74,11 +74,11 @@ def signup(uid, password, name, phone, email):
     finally:
         conn.close()
 
-#로그인 성공 여부 판단을 위한 비밀번호 반환 함수
-def get_pw(uid):
+# 아이디로 비밀번호, 이름, 역할 반환함수
+# 로그인 검증과 세션 정보 등록에 사용된다
+def get_user(uid):
     conn, cur =  conn_db()
-    cur.execute("select password from users where uid = %s",(uid,))
+    cur.execute("select password, name, role from users where uid = %s",(uid,))
     result = cur.fetchone()
     conn.close()
-    if result:
-        return result[0]
+    return result
