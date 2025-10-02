@@ -73,3 +73,11 @@ def signup(uid, password, name, phone, email):
         conn.commit()
     finally:
         conn.close()
+
+#로그인 성공 여부 판단을 위한 비밀번호 반환 함수
+def get_pw(uid):
+    conn, cur =  conn_db()
+    cur.execute("select password from users where uid = %s",(uid,))
+    result = cur.fetchone()
+    if result:
+        return result[0]

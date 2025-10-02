@@ -27,6 +27,22 @@ def signup():
         return redirect(url_for("signin"))
     return ren("signup.html")
 
+#로그인
+@app.route("/signin", methods=['GET','POST'])
+def signin():
+    if request.method == "POST":
+        uid = request.form["uid"]
+        password = request.form["password"]
+        
+        correct_pw = db.get_pw(uid)
+        #로그인 성공
+        if correct_pw and chk_pw(correct_pw, password):
+            session["uid"] = uid
+            return redirect(url_for("index"))
+        else:
+            return redirect(url_for("signin"))
+    return ren("signin.html")
+
 #Flask 서버 실행
 if __name__ == "__main__":
     db.init_db()
