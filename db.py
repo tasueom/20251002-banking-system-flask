@@ -79,5 +79,6 @@ def get_pw(uid):
     conn, cur =  conn_db()
     cur.execute("select password from users where uid = %s",(uid,))
     result = cur.fetchone()
+    conn.close()
     if result:
         return result[0]
