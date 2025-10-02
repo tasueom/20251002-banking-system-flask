@@ -5,6 +5,10 @@ import db
 app = Flask(__name__)
 app.secret_key = "secret_key_b"
 
+@app.route("/")
+def index():
+    return ren("index.html")
+
 #Flask 서버 실행
 if __name__ == "__main__":
     db.init_db()
