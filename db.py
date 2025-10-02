@@ -62,3 +62,14 @@ def init_db():
     
     conn.commit()
     conn.close()
+
+#회원가입
+def signup(uid, password, name, phone, email):
+    conn, cur = conn_db()
+    try:
+        cur.execute("""
+                    insert into users(uid, password, name, phone, email) values(%s,%s,%s,%s,%s)
+                    """,(uid, password, name, phone, email))
+        conn.commit()
+    finally:
+        conn.close()
