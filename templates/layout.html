@@ -9,7 +9,9 @@
     <div class="navigation">
         <h1>뱅킹 시스템</h1>
         <div class="auth_nav">
+            {% if not uid %}
             <a href="{{url_for('signup')}}">회원가입</a>
+            {% endif %}
         </div>
     </div>
     <div class="container">

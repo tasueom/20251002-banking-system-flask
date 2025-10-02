@@ -7,7 +7,7 @@ app.secret_key = "secret_key_b"
 
 @app.route("/")
 def index():
-    return ren("index.html")
+    return ren("index.html", uid = session.get("uid"))
 
 #회원가입
 @app.route("/signup", methods=['GET','POST'])
