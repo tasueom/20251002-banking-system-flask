@@ -107,3 +107,27 @@ def create_acc(acc_no,uid,balance):
         conn.commit()
     finally:
         conn.close()
+
+# 계좌 단건 조회
+def get_acc(acc_no):
+    conn, cur = conn_db()
+    cur.execute("select acc_no, uid, balance from accounts where acc_no=%s", (acc_no,))
+    row = cur.fetchone()
+    conn.close()
+    return row
+
+# 입금, 출금
+def transaction(acc_no, trans_type, amount, balance):
+    conn, cur = conn_db()
+    # 계좌 테이블에서 잔액 업데이트
+    cur.execute("""
+                update accounts set
+                balance = %s
+                where acc_no = %s
+                """,(balance, acc_no))
+    cur.execute("""
+                insert into transactions(acc_no, trans_type, amount, balance)
+                values(%s, %s, %s, %s)
+                """,(acc_no, trans_type, amount, balance))
+    conn.commit()
+    conn.close()

@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block title %}뱅킹 시스템{% endblock %}
+
+{% block content %}
+<h2>입출금</h2>
+<form method="post">
+    <select name="trans_type" required>
+        <option value="" disabled selected>거래 유형</option>
+        <option value="입금">입금</option>
+        <option value="출금">출금</option>
+    </select>
+    <select name="acc_no" required>
+        <option value="" disabled selected>계좌 선택</option>
+        {% for acc in accs %}
+        <option value="{{acc[0]}}">{{acc[0]}}</option>
+        {% endfor %}
+    </select><br>
+    <input type="number" name="amount" required placeholder="금액"><br>
+    <button type="submit">확인</button>
+</form>
+{% endblock %}
