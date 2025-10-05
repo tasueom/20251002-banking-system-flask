@@ -79,9 +79,9 @@ def signup(uid, password, name, phone, email):
 def get_user(uid):
     conn, cur =  conn_db()
     cur.execute("select password, name, role from users where uid = %s",(uid,))
-    result = cur.fetchone()
+    row = cur.fetchone()
     conn.close()
-    return result
+    return row
 
 # 아이디로 내 계좌 선택
 def get_my_acc(uid):
@@ -91,10 +91,10 @@ def get_my_acc(uid):
                 from accounts
                 where uid = %s
                 """,(uid,))
-    result = cur.fetchall()
+    rows = cur.fetchall()
     conn.close()
     
-    return result
+    return rows
 
 #계좌 개설
 def create_acc(acc_no,uid,balance):
