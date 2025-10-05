@@ -4,6 +4,7 @@
 
 {% block content %}
 <h2>입출금</h2>
+{% if accs %}
 <form method="post">
     <select name="trans_type" required>
         <option value="" disabled selected>거래 유형</option>
@@ -19,4 +20,7 @@
     <input type="number" name="amount" required placeholder="금액"><br>
     <button type="submit">확인</button>
 </form>
+{% else %}
+<p>개설한 계좌가 없습니다. <a href="{{url_for('create_acc')}}">계좌 개설하러 가기</a></p>
+{% endif %}
 {% endblock %}
