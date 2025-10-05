@@ -42,17 +42,18 @@ def signin():
         uid = request.form["uid"]
         password = request.form["password"]
         
-        correct_pw, name, role = db.get_user(uid)
-        #로그인 성공
-        if correct_pw and chk_pw(correct_pw, password):
-            # 세션에 정보 등록
-            session["uid"] = uid
-            session["name"] = name
-            session["role"] = role
-            return redirect(url_for("index"))
-        else:
-            flash("아이디 혹은 비밀번호를 확인해주세요.")
-            return redirect(url_for("signin"))
+        row = db.get_user(uid)
+        if row:
+            correct_pw, name, role = row
+            #로그인 성공
+            if chk_pw(correct_pw, password):
+                # 세션에 정보 등록
+                session["uid"] = uid
+                session["name"] = name
+                session["role"] = role
+                return redirect(url_for("index"))
+        flash("아이디 혹은 비밀번호를 확인해주세요.")
+        return redirect(url_for("signin"))
     return ren("signin.html")
 
 # 로그아웃
