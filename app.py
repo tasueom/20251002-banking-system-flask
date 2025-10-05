@@ -110,6 +110,35 @@ def transaction():
     accs = db.get_my_acc(uid)
     return ren("transaction.html", accs=accs)
 
+# 계좌이체
+@app.route("/transfer", methods=['GET','POST'])
+def transfer():
+    uid = session.get("uid")
+    if request.method == "POST":
+        to_acc_no = request.form["to_acc_no"]
+        acc_no = request.form["acc_no"]
+        amount = int(request.form["amount"])
+        existing_balance = db.get_acc(acc_no)[2]
+        
+        # 받는사람 계좌가 존재하는지 판단
+        to_acc = db.get_acc(to_acc_no)
+        if not to_acc:
+            flash("받는 분 계좌가 존재하지 않습니다")
+            return redirect(url_for("transfer"))
+        # 출금 한도 초과여부 판단
+        if existing_balance < amount:
+            flash("출금 한도를 초과하였습니다.")
+            return redirect(url_for("transaction"))
+        to_balance = db.get_acc(to_acc_no)[2]+amount
+        balance = existing_balance-amount
+        
+        db.transfer(to_acc_no, acc_no, amount, to_balance, balance)
+        flash("이체에 성공하였습니다.")
+        return redirect(url_for("my_acc"))
+    # 내 계좌 목록 선택하여 넘김
+    accs = db.get_my_acc(uid)
+    return ren("transfer.html", accs=accs)
+
 #Flask 서버 실행
 if __name__ == "__main__":
     db.init_db()

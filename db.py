@@ -131,3 +131,32 @@ def transaction(acc_no, trans_type, amount, balance):
                 """,(acc_no, trans_type, amount, balance))
     conn.commit()
     conn.close()
+
+# 계좌 이체
+def transfer(to_acc_no, acc_no, amount, to_balance, balance):
+    conn, cur = conn_db()
+    # 내 계좌 테이블에서 잔액 업데이트
+    cur.execute("""
+                update accounts set
+                balance = balance - %s
+                where acc_no = %s
+                """,(amount, acc_no))
+    # 내 이체 내역을 거래내역 테이블에 삽입
+    cur.execute("""
+                insert into transactions(acc_no, trans_type, amount, balance)
+                values(%s, %s, %s, %s)
+                """,(acc_no, "이체(출금)", amount, balance))
+    # 상대 계좌 테이블에서 잔액 업데이트
+    cur.execute("""
+                update accounts set
+                balance = balance + %s
+                where acc_no = %s
+                """,(amount, to_acc_no))
+    # 상대 이체 내역을 거래내역 테이블에 삽입
+    cur.execute("""
+                insert into transactions(acc_no, trans_type, amount, balance)
+                values(%s, %s, %s, %s)
+                """,(to_acc_no, "이체(입금)", amount, to_balance))
+    
+    conn.commit()
+    conn.close()

@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block title %}뱅킹 시스템{% endblock %}
+
+{% block content %}
+<h2>계좌이체</h2>
+{% if accs %}
+<form method="post">
+    <input type="text" name="to_acc_no" placeholder="받는 계좌번호">
+    <input type="number" name="amount" required placeholder="이체 금액"><br>
+    <select name="acc_no" required>
+        <option value="" disabled selected>출금 계좌 선택</option>
+        {% for acc in accs %}
+        <option value="{{acc[0]}}">{{acc[0]}}</option>
+        {% endfor %}
+    </select><br>
+    <button type="submit">확인</button>
+</form>
+{% else %}
+<p>개설한 계좌가 없습니다. <a href="{{url_for('create_acc')}}">계좌 개설하러 가기</a></p>
+{% endif %}
+{% endblock %}
