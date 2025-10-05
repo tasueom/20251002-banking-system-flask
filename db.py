@@ -1,4 +1,5 @@
 import mysql.connector
+from werkzeug.security import generate_password_hash as gen_pw
 
 # MySQL 기본 연결 설정 (데이터베이스를 지정하지 않고 접속)
 base_config = {
@@ -59,6 +60,17 @@ def init_db():
                 trans_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 )
                 """)
+    
+    # 관리자 계정 미리 삽입
+    password = gen_pw("1234")
+    try:
+        cur.execute("""
+            insert into users(uid, name, password, role)
+            values('admin', '관리자', %s, 'admin')
+        """,(password,))
+        conn.commit()
+    except:
+        pass
     
     conn.commit()
     conn.close()
