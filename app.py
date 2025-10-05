@@ -139,6 +139,13 @@ def transfer():
     accs = db.get_my_acc(uid)
     return ren("transfer.html", accs=accs)
 
+# 계좌별 거래내역 조회
+@app.route("/get_trans_log")
+def get_trans_log():
+    acc_no = request.args["acc_no"]
+    trans_log = db.get_trans_log(acc_no)
+    return ren("trans_log.html", trans_log=trans_log)
+
 #Flask 서버 실행
 if __name__ == "__main__":
     db.init_db()

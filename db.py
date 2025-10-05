@@ -160,3 +160,17 @@ def transfer(to_acc_no, acc_no, amount, to_balance, balance):
     
     conn.commit()
     conn.close()
+
+# 계좌별 거래내역 조회
+def get_trans_log(acc_no):
+    conn, cur = conn_db()
+    cur.execute("""
+                select
+                acc_no, trans_type, amount, balance
+                from transactions
+                where acc_no = %s
+                """,(acc_no,))
+    rows = cur.fetchall()
+    conn.close()
+    
+    return rows

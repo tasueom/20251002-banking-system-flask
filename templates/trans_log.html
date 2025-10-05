@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block title %}뱅킹 시스템{% endblock %}
+
+{% block content %}
+<h2>거래 내역 조회</h2>
+{% if trans_log %}
+<table>
+    <tr>
+        <th>거래 유형</th>
+        <th>금액</th>
+        <th>거래 후 잔액</th>
+    </tr>
+    {% for t in trans_log %}
+    <tr>
+        <td>{{t[1]}}</td>
+        <td>{{t[2]}}</td>
+        <td>{{t[3]}}</td>
+    </tr>
+    {% endfor %}
+</table>
+<a href="{{url_for('my_acc')}}">돌아가기</a>
+{% else %}
+해당 계좌로 진행된 거래 내역이 없습니다.
+{% endif %}
+{% endblock %}
