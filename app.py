@@ -98,6 +98,9 @@ def transaction():
         if trans_type=="입금":
             balance = existing_balance+amount
         else:
+            if existing_balance < amount:
+                flash("출금 한도를 초과하였습니다.")
+                return redirect(url_for("transaction"))
             balance = existing_balance-amount
         db.transaction(acc_no, trans_type, amount, balance)
         flash("정상적으로 완료되었습니다.")
