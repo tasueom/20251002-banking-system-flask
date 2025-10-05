@@ -51,6 +51,7 @@ def signin():
             session["role"] = role
             return redirect(url_for("index"))
         else:
+            flash("아이디 혹은 비밀번호를 확인해주세요.")
             return redirect(url_for("signin"))
     return ren("signin.html")
 
