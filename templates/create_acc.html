@@ -4,7 +4,7 @@
 
 {% block content %}
 <h2>계좌 개설</h2>
-<form method="post" action="{{url_for('create_acc')}}">
+<form method="post" action="{{url_for('create_acc')}}" onsubmit="return checkAcc(this)">
     계좌번호: 
     <input type="text" name="acc_no" value="{{acc_no}}" readonly><br>
     초기 금액: 

@@ -35,3 +35,16 @@ function checkUser(f) {
 
     return true;
 }
+
+function checkAcc(f) {
+    const accNo = f.acc_no.value;
+    const balance = Number(f.balance.value);
+
+    if (balance < 10000) {
+        alert("초기 금액은 최소 10,000원 이상이어야 합니다.");
+        f.balance.focus();
+        return false;
+    }
+
+    return true;
+}
