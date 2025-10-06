@@ -14,8 +14,7 @@
     </script>
     {% endif %}
     <div class="navigation">
-        <h1>뱅킹 시스템</h1>
-        <a href="{{url_for('index')}}">메인으로</a>
+        <a href="{{url_for('index')}}"><h1>뱅킹 시스템</h1></a>
         {% if role=="user" %}
         <a href="{{url_for('my_acc')}}">내 계좌</a>
         <a href="{{url_for('transaction')}}">입출금</a>
