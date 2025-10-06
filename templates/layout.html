@@ -20,6 +20,8 @@
         <a href="{{url_for('my_acc')}}">내 계좌</a>
         <a href="{{url_for('transaction')}}">입출금</a>
         <a href="{{url_for('transfer')}}">계좌이체</a>
+        {% else %}
+        <a href="{{url_for('user_list')}}">회원 목록</a>
         {% endif %}
         <div class="auth_nav">
             {% if not uid %}
