@@ -186,3 +186,15 @@ def get_trans_log(acc_no):
     conn.close()
     
     return rows
+
+# 모든 회원의 정보 선택
+def get_all_users():
+    conn, cur = conn_db()
+    cur.execute("""
+                select uid, name, phone, email
+                from users
+                where uid != 'admin'
+                """)
+    rows = cur.fetchall()
+    
+    return rows

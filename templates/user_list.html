@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block title %}회원 목록{% endblock %}
+
+{% block content %}
+<h2>회원 목록</h2>
+{% if user_list %}
+<table>
+    <tr>
+        <th>아이디</th>
+        <th>이름</th>
+        <th>전화번호</th>
+        <th>이메일</th>
+    </tr>
+    {% for u in user_list %}
+    <tr>
+        <td>{{u[0]}}</td>
+        <td>{{u[1]}}</td>
+        <td>{{u[2]}}</td>
+        <td>{{u[3]}}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endif %}
+{% endblock %}

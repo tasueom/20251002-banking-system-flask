@@ -148,6 +148,16 @@ def get_trans_log():
     trans_log = db.get_trans_log(acc_no)
     return ren("trans_log.html", trans_log=trans_log)
 
+# (관리자) 전체 회원 조회
+@app.route("/user_list")
+def user_list():
+    if session.get("role") != "admin":
+        flash("관리자 전용 페이지입니다.")
+        return redirect(url_for("index"))
+    user_list = db.get_all_users()
+    
+    return ren("user_list.html", user_list=user_list)
+
 #Flask 서버 실행
 if __name__ == "__main__":
     db.init_db()
