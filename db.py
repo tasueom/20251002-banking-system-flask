@@ -196,5 +196,6 @@ def get_all_users():
                 where uid != 'admin'
                 """)
     rows = cur.fetchall()
+    conn.close()
     
     return rows
