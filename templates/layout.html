@@ -22,6 +22,7 @@
         {% else %}
         <a href="{{url_for('user_list')}}">회원 목록</a>
         <a href="{{url_for('acc_list')}}">계좌 목록</a>
+        <a href="{{url_for('transaction_list')}}">거래 내역 목록</a>
         {% endif %}
         <div class="auth_nav">
             {% if not uid %}

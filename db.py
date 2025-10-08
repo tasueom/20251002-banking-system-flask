@@ -217,3 +217,13 @@ def get_all_accs():
     conn.close()
     
     return rows
+
+# 전체 거래 내역 조회
+def list_transactions():
+    conn = get_conn()
+    cur = conn.cursor()
+    cur.execute("select * from transactions")
+    rows = cur.fetchall()
+    conn.close()
+    
+    return rows

@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block title %}거래 내역 목록{% endblock %}
+
+{% block content %}
+<h2>거래 내역 목록</h2>
+{% if trans_list %}
+<table>
+    <tr>
+        <th>거래 번호</th>
+        <th>계좌 번호</th>
+        <th>거래 유형</th>
+        <th>금액</th>
+        <th>거래 후 잔액</th>
+        <th>거래 일시</th>
+    </tr>
+    {% for t in trans_list %}
+    <tr>
+        <td>{{t[0]}}</td>
+        <td>{{t[1]}}</td>
+        <td>{{t[2]}}</td>
+        <td>{{t[3]}}</td>
+        <td>{{t[4]}}</td>
+        <td>{{t[5]}}</td>
+    </tr>
+    {% endfor %}
+</table>
+<a href="{{url_for('my_acc')}}">돌아가기</a>
+{% else %}
+거래 내역이 없습니다.
+{% endif %}
+{% endblock %}

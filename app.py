@@ -168,6 +168,16 @@ def acc_list():
     
     return ren("acc_list.html", acc_list=acc_list)
 
+# (관리자) 전체 거래 내역 조회
+@app.route("/transaction_list")
+def transaction_list():
+    if session.get("role") != "admin":
+        flash("관리자 전용 페이지입니다.")
+        return redirect(url_for("index"))
+    trans_list = db.list_transactions()
+    
+    return ren("transaction_list.html", trans_list=trans_list)
+
 #Flask 서버 실행
 if __name__ == "__main__":
     db.init_db()
