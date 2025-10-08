@@ -10,12 +10,14 @@
         <th>거래 유형</th>
         <th>금액</th>
         <th>거래 후 잔액</th>
+        <th>거래 일시</th>
     </tr>
     {% for t in trans_log %}
     <tr>
         <td>{{t[1]}}</td>
         <td>{{t[2]}}</td>
         <td>{{t[3]}}</td>
+        <td>{{t[4]}}</td>
     </tr>
     {% endfor %}
 </table>
