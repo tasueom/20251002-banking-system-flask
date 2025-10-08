@@ -178,7 +178,7 @@ def get_trans_log(acc_no):
     conn, cur = conn_db()
     cur.execute("""
                 select
-                acc_no, trans_type, amount, balance, trans_date
+                trans_type, amount, balance, trans_date
                 from transactions
                 where acc_no = %s
                 """,(acc_no,))
