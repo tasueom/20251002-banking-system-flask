@@ -158,6 +158,16 @@ def user_list():
     
     return ren("user_list.html", user_list=user_list)
 
+# (관리자) 전체 계좌 조회
+@app.route("/acc_list")
+def acc_list():
+    if session.get("role") != "admin":
+        flash("관리자 전용 페이지입니다.")
+        return redirect(url_for("index"))
+    acc_list = db.get_all_accs()
+    
+    return ren("acc_list.html", acc_list=acc_list)
+
 #Flask 서버 실행
 if __name__ == "__main__":
     db.init_db()

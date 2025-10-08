@@ -199,3 +199,12 @@ def get_all_users():
     conn.close()
     
     return rows
+
+# 모든 계좌 정보 선택
+def get_all_accs():
+    conn, cur = conn_db()
+    cur.execute("select * from accounts")
+    rows = cur.fetchall()
+    conn.close()
+    
+    return rows
