@@ -174,9 +174,14 @@ def transaction_list():
     if session.get("role") != "admin":
         flash("관리자 전용 페이지입니다.")
         return redirect(url_for("index"))
-    trans_list = db.list_transactions()
+    acc_search = request.args.get("acc_search", "0")
+    if acc_search == "0":
+        trans_list = db.list_transactions()
+    else:
+        trans_list = db.get_trans_log(acc_search)
+    acc_list = db.get_all_accs()
     
-    return ren("transaction_list.html", trans_list=trans_list)
+    return ren("transaction_list.html", trans_list=trans_list, acc_list=acc_list, acc_search=acc_search)
 
 #Flask 서버 실행
 if __name__ == "__main__":

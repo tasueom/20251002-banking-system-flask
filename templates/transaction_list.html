@@ -4,6 +4,15 @@
 
 {% block content %}
 <h2>거래 내역 목록</h2>
+<form action="{{url_for('transaction_list')}}">
+    <select name="acc_search">
+        <option value="0">전체 계좌 내역 조회</option>
+        {% for a in acc_list %}
+        <option value="{{a[0]}}" {% if acc_search == a[0] %}selected{% endif %}>{{a[0]}} ({{a[1]}})</option>
+        {% endfor %}
+    </select>
+    <button type="submit">조회</button>
+</form>
 {% if trans_list %}
 <table>
     <tr>
