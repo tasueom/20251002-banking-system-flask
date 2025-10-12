@@ -44,7 +44,9 @@ def signin():
         
         row = db.get_user(uid)
         if row:
-            correct_pw, name, role = row
+            correct_pw = row[1]
+            name = row[2]
+            role = row[5]
             #로그인 성공
             if chk_pw(correct_pw, password):
                 # 세션에 정보 등록

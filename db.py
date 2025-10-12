@@ -86,12 +86,12 @@ def signup(uid, password, name, phone, email):
     finally:
         conn.close()
 
-# 아이디로 비밀번호, 이름, 역할 반환함수
-# 로그인 검증과 세션 정보 등록에 사용된다
+# 아이디로 개인정보 반환함수
+# 로그인 검증과 세션 정보 등록, 내 정보 조회에 사용된다
 def get_user(uid):
     conn = get_conn()
     cur = conn.cursor()
-    cur.execute("select password, name, role from users where uid = %s",(uid,))
+    cur.execute("select * from users where uid = %s",(uid,))
     row = cur.fetchone()
     conn.close()
     return row
