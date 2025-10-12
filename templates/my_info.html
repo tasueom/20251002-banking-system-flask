@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block title %}내 정보{% endblock %}
+
+{% block content %}
+<h2>내 정보</h2>
+<form method="post" action="{{url_for('update_info')}}">
+    ID
+    <input type="text" name="uid" value="{{row[0]}}" readonly>
+    이름
+    <input type="text" name="name" value="{{row[2]}}" required>
+    전화번호
+    <input type="text" name="phone" value="{{row[3]}}" required placeholder="000-0000-0000">
+    이메일
+    <input type="text" name="email" value="{{row[4]}}" required placeholder="example@mail.com">
+    <button type="submit">내 정보 수정</button>
+</form>
+{% endblock %}

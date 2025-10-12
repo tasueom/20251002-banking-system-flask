@@ -72,6 +72,27 @@ def my_acc():
     
     return ren("my_acc.html",accs=accs)
 
+# 내 정보 조회
+@app.route("/my_info")
+def my_info():
+    uid = session.get("uid")
+    
+    row = db.get_user(uid)
+    
+    return ren("my_info.html",row=row)
+
+# 내 정보 수정
+@app.route("/update_info", methods=['POST'])
+def update_info():
+    uid = session.get("uid")
+    name = request.form["name"]
+    phone = request.form["phone"]
+    email = request.form["email"]
+        
+    db.update_user(uid,name,phone,email)
+    flash("수정되었습니다.")
+    return redirect(url_for("my_info"))
+
 # 계좌 개설
 @app.route("/create_acc", methods=['GET','POST'])
 def create_acc():

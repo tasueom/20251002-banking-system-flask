@@ -96,6 +96,20 @@ def get_user(uid):
     conn.close()
     return row
 
+# 내 정보 수정
+def update_user(uid, name, phone, email):
+    conn = get_conn()
+    cur = conn.cursor()
+    cur.execute("""
+                update users set
+                name = %s,
+                phone = %s,
+                email = %s
+                where uid = %s
+                """,(name, phone, email, uid))
+    conn.commit()
+    conn.close()
+
 # 아이디로 내 계좌 선택
 def get_my_acc(uid):
     conn = get_conn()
